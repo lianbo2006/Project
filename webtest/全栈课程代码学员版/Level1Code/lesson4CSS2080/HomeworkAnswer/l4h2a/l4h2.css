@@ -1,0 +1,29 @@
+body {
+    background-color: #e4e4e4;
+}
+.comment-bg {
+    background-color: white;
+    border-left: #55cb52 solid 3px;
+    width: 700px;
+    margin-bottom: 5px;
+    margin-left: 355px;
+}
+.username {
+    font-size: 15px;
+    color: #372e8e;
+}
+.meta {
+    font-size: 10px;
+    color: #8b91b4;
+}
+.comment {
+    margin-bottom: 10px;
+}
+.warper-light {
+    background-color: white;
+    padding:5px 20px 5px 20px;
+}
+.warper-dark {
+    background-color: #e4e4e4;
+    padding:5px 20px 5px 20px;
+}

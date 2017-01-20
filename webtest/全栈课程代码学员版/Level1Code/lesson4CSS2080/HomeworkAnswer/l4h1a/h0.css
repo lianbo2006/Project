@@ -1,0 +1,45 @@
+body {
+    background-color:#EAEAEA;
+}
+
+.blue-card {
+    background-color: #9cbfcc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    width: 230px;
+    height: 290px;
+    padding-left: 58px;
+    padding-top: 56px;
+    display: inline-block;
+    margin-right: 10px;
+    /*使用 inline-block之后默认会有5px的距离，所以这里我写了10px 的距离，加起来正好是设计图要求的15px,你也可以先去掉 inline-block 带来的距离，方法是：https://css-tricks.com/fighting-the-space-between-inline-block-elements/*/
+
+}
+
+.green-card {
+    background-color: #6bb790;
+    border-radius: 5px;
+    box-sizing: border-box;
+    width: 230px;
+    height: 290px;
+    padding-left: 58px;
+    padding-top: 56px;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.yellow-card {
+    background-color: #F5b227;
+    border-radius: 5px;
+    box-sizing: border-box;
+    width: 230px;
+    height: 290px;
+    padding-left: 58px;
+    padding-top: 56px;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+p {
+    color: white;
+}
