@@ -1,0 +1,29 @@
+body{
+  background-color: #E4E4E4;
+}
+.wall-bright{
+  padding:5px 20px 5px 20px;
+  background-color: #ffffff;
+}
+.wall-dark{
+  background-color: #e4e4e4;
+  padding:5px 20px 5px 20px;
+}
+.username{
+  color: #372e8e;
+  font-size:15px;
+}
+.meta{
+  color: #8b91b4;
+  font-size:10px;
+}
+.comment{
+    margin-left: 355px;
+    margin-bottom: 5px;
+    border-left: solid 3px #55cb52;
+    box-sizing: border-box;
+    width: 700px;
+}
+.content{
+  margin-bottom:10px;
+}

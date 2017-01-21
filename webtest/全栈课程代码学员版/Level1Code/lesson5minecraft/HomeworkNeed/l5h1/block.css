@@ -1,18 +1,32 @@
 .block-1 {
 
     box-sizing: border-box;
+    width: 192px;
+    height: 64px;
+    background:url('images/grass.png');
+    background-size: contain;
+    position: relative;;
+    left:64px;
+}
+
+.block-2-1 {
+    box-sizing: border-box;
     width: 64px;
     height: 64px;
     background:url('images/grass.png');
     background-size: contain;
+    position: relative;
+    left:64px;
 }
-
-.block-2 {
+.block-2-2 {
     box-sizing: border-box;
-    width: 128px;
+    width: 64px;
     height: 64px;
     background:url('images/grass.png');
     background-size: contain;
+    position: absolute;
+    left:192px;
+    bottom: 64px;
 }
 
 .block-3 {
@@ -22,6 +36,8 @@
     height: 64px;
     background:url('images/grass.png');
     background-size: contain;
+    position: relative;
+    left:64px;
 
 }
 
@@ -32,8 +48,8 @@
     background:url('images/rose.png');
     background-size: contain;
     position: relative;
-    left: 32px;
-    top: 64px;
+    left: 128px;
+    top: 128px;
 }
 
 .yellow-flower {
@@ -44,7 +60,7 @@
     background-size: contain;
     position: absolute;
     left: 128px;
-
+    /*top:128px;*/
 }
 
 .point {
