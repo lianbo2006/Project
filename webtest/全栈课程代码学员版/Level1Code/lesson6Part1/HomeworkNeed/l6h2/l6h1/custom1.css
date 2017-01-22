@@ -1,0 +1,18 @@
+.ui.inverted.basic.segment.bg{
+  background: url("images/detail.jpg");
+  background-size:cover;
+  background-repeat: no-repeat;
+  height: 500px;
+}
+.ui.vertical.basic.segment.content{
+  box-sizing: border-box;
+  width: 700px;
+  padding-bottom: 200px;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%,0);
+}
+.ui.header.hd1{
+  font-size: 40px;
+  font-family:'Oswald', sans-serif;
+}

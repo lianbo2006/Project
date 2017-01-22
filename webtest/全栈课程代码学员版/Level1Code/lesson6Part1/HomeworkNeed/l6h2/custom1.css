@@ -1,0 +1,28 @@
+.ui.inverted.basic.segment.bg{
+  background: url("images/star_banner.jpg");
+  background-size:cover;
+  height: 300px;
+  background-position: 100% 80%;
+  padding-top: 60px;
+}
+.ui.container.vertical.segment{
+  width: 800px;
+}
+h2 {
+    font-family:'Oswald', sans-serif!important;
+    font-size:40px;
+}
+p {
+    font-family: 'Raleway', sans-serif;
+    font-size:18px;
+}
+.ui.inverted.center.aligned.header.custom1{
+  font-size: 50px;
+  font-family:'Raleway', sans-serif;
+}
+.ui.container.nav {
+    width: 500px;
+}
+.ui.vertical.basic.segment.content2{
+  position: relative;
+}
