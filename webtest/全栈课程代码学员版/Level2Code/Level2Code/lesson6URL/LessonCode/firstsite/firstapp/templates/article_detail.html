@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <link rel="stylesheet" href="{% static 'css/semantic.css' %}" media="screen" title="no title" charset="utf-8">
+        <link href="https://fonts.googleapis.com/css?family=Oswald|Raleway" rel="stylesheet">
+
+
+        <style type="text/css">
+            .ui.segment.container {
+                width:700px;
+            }
+            h1 {
+                font-family:'Oswald', sans-serif;font-size:40px!important;
+            }
+
+            p {
+                font-family: 'Raleway', sans-serif;
+                font-size:18px;
+            }
+
+            body {
+                background:url({% static 'images/star_banner.jpg' %});
+                background-size:cover;
+                background-repeat:no-repeat;
+                background-attachment:fixed
+            }
+
+        </style>
+    </head>
+    <body>
+        <div class="ui image">
+            <img src="" alt="" />
+        </div>
+        <div class="ui  segment padded container" >
+            <h1 class="ui header">
+                {{ article.headline }}
+            </h1>
+            <p>
+                {{ article.content }}
+            </p>
+        </div>
+
+        <!-- Comments&Form's here -->
+        <div class="ui segment container" style="width:700px;">
+            <h3 class="ui header" style="font-family:'Oswald', sans-serif;">Comments</h3>
+            <div class="ui comments">
+                {% if best_comment %}
+                    <div class="ui mini red left ribbon label">
+                        <i class="icon fire"></i>
+                        BEST
+                    </div>
+                    <div class="best comment">
+                        <div class="avatar">
+                            <img src="http://semantic-ui.com/images/avatar/small/matt.jpg"  alt="" />
+                        </div>
+                        <div class="content">
+                            <a href="#" class="author">{{ best_comment.name }}</a>
+                            <div class="metadata">
+                                <div class="date">2 days ago</div>
+                            </div>
+                            <p class="text" style="font-family: 'Raleway', sans-serif;">
+                                {{ best_comment.comment }}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="ui divider"></div>
+                {% endif %}
+
+                {% for comment in article.under_comments.all %}
+                    <div class="comment">
+                        <div class="avatar">
+                            <img src="http://semantic-ui.com/images/avatar/small/matt.jpg"  alt="" />
+                        </div>
+                        <div class="content">
+                            <a href="#" class="author">{{ comment.name }}</a>
+                            <div class="metadata">
+                                <div class="date">2 days ago</div>
+                            </div>
+                            <p class="text" style="font-family: 'Raleway', sans-serif;">
+                                {{ comment.comment }}
+                            </p>
+                        </div>
+                    </div>
+                {% endfor %}
+
+
+
+            </div>
+            <div class="ui divider"></div>
+            <form class="ui error tiny form" action="{% url 'comment' article.id %}" method="post">
+                {% if form.errors %}
+                    <div class="ui error message">
+                        {{ form.errors }}
+                    </div>
+                    {% for field in form  %}
+                        <div class="{{ field.errors|yesno:'error, ' }} field">
+                            {{ field.label }}
+                            {{ field }}
+                        </div>
+                    {% endfor %}
+
+                {% else %}
+                    {% for field in form  %}
+                        <div class="field">
+                            {{ field.label }}
+                            {{ field }}
+                        </div>
+                    {% endfor %}
+
+                {% endif %}
+
+
+
+                {% csrf_token %}
+                <button type="submit" class="ui blue button" >Click</button>
+            </form>
+
+        </div>
+
+    </body>
+</html>

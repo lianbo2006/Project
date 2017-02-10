@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/semantic.css">
+    <link href="https://fonts.googleapis.com/css?family=Play" rel="stylesheet">
+    <title>注册页</title>
+  </head>
+  <style type="text/css">
+  body {
+    background: url('images/super_blur_back2.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .ui.grid.divided.segment.container {
+    height: 400px;
+    width: 600px !important;
+    position: absolute;
+    left: 50%;
+    top:50%;
+    transform: translate(-50%,-50%);
+    border: rgba(255, 0, 0, 0);
+  }
+  .five.wide.column {
+    background-image: url('images/red_regi.jpg');
+    background-size: cover;
+    background-position: 10% 0%;
+  }
+  h1,h3,h4{
+      font-family: 'Play', sans-serif !important;
+
+  }
+  .ui.form{
+    padding-top:  60px;
+  }
+  </style>
+  <body>
+    <div class="ui grid divided segment container">
+      <div class="five wide column">
+        <h4 class="ui inverted header">
+        <a href="#" target='_blank' style="color:White;">
+          <i class="angle left icon"></i>
+        </a>
+      </h4>
+        <h1 class="ui inverted center aligned header" style="font-size: 20px;margin-top:55px">
+            <p class="sub header">
+                Welcome to
+            </p>
+            NEU云机器人
+        </h1>
+
+      </div>
+
+      <div class="eleven wide column">
+        <h4 class="ui right aligned header" style="color:#ff695e">
+        or LOGIN</h4>
+        <form class="ui form">
+          <div class="field">
+            <input name="usernsame" placeholder="usernsame" type="text">
+          </div>
+          <div class="field">
+            <input name="email" placeholder="your@email.com" type="email">
+          </div>
+          <div class="field">
+            <input name="password1" placeholder="password" type="password">
+          </div>
+          <div class="field">
+            <input name="password2" placeholder="check password again" type="password">
+          </div>
+
+          <button class="ui inverted red circular right floated button" type="submit">注册</button>
+        </form>
+
+      </div>
+
+    </div>
+  </body>
+</html>

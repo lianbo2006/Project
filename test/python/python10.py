@@ -19,8 +19,8 @@ data = {
 print_scores(**data)
 
 def print_info(name, *, gender, city='Beijing', age):
-    print('Personal Info')
-    print('---------------')
+    print('     Personal Info')
+    print('-----------------')
     print('%7s: %s' %("Name",name))
     print(' Gender: %s' % gender)
     print('   City: %s' % city)

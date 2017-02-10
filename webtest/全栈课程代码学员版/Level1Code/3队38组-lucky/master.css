@@ -1,0 +1,26 @@
+body {
+    background-color: rgb(245, 245, 245);
+}
+span {
+    font-family: 'Raleway', sans-serif;
+}
+.ui.inverted.top.fixed.menu.borderless.red.menu {
+    position: relative;
+}
+
+.ui.basic.text.segment.container {
+  position: relative;
+  width: 320px;
+  margin-bottom: 30px;
+}
+.ui.five.column.grid {
+  position: relative;
+  margin-bottom: 0px;
+}
+
+.ui.center.aligned.basic.segment {
+  position: relative;
+  transform: translate(-50%,-50%);
+  margin-left: 50%;
+  margin-top: 3%;
+}

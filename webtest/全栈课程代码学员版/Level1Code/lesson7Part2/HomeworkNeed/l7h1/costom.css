@@ -1,0 +1,12 @@
+body {
+  background:url(images/star_banner.jpg);
+  background-size:cover;
+  background-repeat:repeat-y;
+}
+p {
+  font-family: 'Raleway', sans-serif;
+  font-size:18px;
+}
+.ui.segment.padded.container {
+  width:700px;
+}
