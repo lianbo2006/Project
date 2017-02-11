@@ -8,6 +8,7 @@ class Article(models.Model):
     views=models.IntegerField(default=0)
     likes=models.IntegerField(default=0)
     createtime= models.DateField()
+    editors_choice = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title

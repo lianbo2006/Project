@@ -1,11 +1,21 @@
 from django.shortcuts import render,redirect
 from firstapp.models import Article,Comment
 from firstapp.forms import CommentForm
-
+from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 # Create your views here.
 def index(request):
 
     article_list=Article.objects.all()
+
+    page_robot= Paginator(article_list,3)
+    page_num = request.GET.get("page")
+    try:
+        article_list=page_robot.page(page_num)
+    except EmptyPage:
+        article_list=page_robot.page(page_robot.num_pages)
+    except PageNotAnInteger:
+        article_list=page_robot.page(1)
+        
     context={}
     context['article_list']=article_list
     return render(request,'list0.html',context)
