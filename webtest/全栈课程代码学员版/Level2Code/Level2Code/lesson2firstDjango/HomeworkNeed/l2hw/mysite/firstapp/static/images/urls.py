@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from django.contrib.auth.views import logout
-from firstapp.views import index, detail, comment, index_login, index_register,vote
+from firstapp.views import index, detail, comment, index_login, index_register
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -26,5 +26,5 @@ urlpatterns = [
     url(r'^login/$', index_login, name="login"),
     url(r'^register/$', index_register, name="register"),
     url(r'^logout/', logout, {'next_page': '/index'}, name="logout"),
-    url(r'^vote/(?P<id>\d+)/$', vote, name="vote"),
+
 ]

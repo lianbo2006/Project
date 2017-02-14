@@ -15,27 +15,36 @@
 <body>
     <div class="ui inverted top fixed menu borderless red menu">
         <div class="header item">
-            <div class="ui image">
-                <img src='{% static "images/tenlogo.png" %}' alt="">
-            </div>
+          <a href="{% url 'index' %}"><div class="ui image">
+              <img src="{% static 'images/tenlogo.png' %}" alt="">
+          </div>
         </div>
 
-        <div class="right menu">
-            <div class="item">
-                <h5 class="ui inverted header">
-                        <div class="ui mini circular image">
-                            <img src="{% static 'images/hou30.jpg' %}" alt="">
-                        </div>
+        <div class=" right menu">
+          {% if request.user.is_authenticated %}
+          <div class="item">
+              <h5 class="ui inverted header">
+                      <div class="ui mini circular image">
+                          <img src="{% static 'images/hou30.jpg' %}" alt="">
+                      </div>
 
-                        <span>admin</span>
+                      <span>{{request.user.username}}</span>
+                  </h5>
+          </div>
+          <div class="item">
 
-                    </h5>
-            </div>
-            <div class="item">
+              <a href={% url 'logout' %} class="ui inverted circular button">Logout</a>
 
-                <a href="#logout/" class="ui inverted circular button">Logout</a>
+          </div>
+          {% else %}
 
-            </div>
+          <div class="item">
+
+              <a href="{% url 'login' %}" class="ui inverted circular button">Login/Signup</a>
+
+          </div>
+          {% endif %}
+
         </div>
     </div>
     <div class="ui inverted segment container nav">

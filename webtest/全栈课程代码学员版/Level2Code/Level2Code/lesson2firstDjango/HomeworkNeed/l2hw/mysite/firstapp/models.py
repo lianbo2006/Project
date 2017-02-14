@@ -1,5 +1,6 @@
 from django.db import models
 
+from django.contrib.auth.models import User
 # Create your models here.
 class Article(models.Model):
     title = models.CharField(null=True, blank=True, max_length=500)
@@ -12,6 +13,7 @@ class Article(models.Model):
 
     def __str__(self):
         return self.title
+
 class Comment(models.Model):
     name = models.CharField(max_length=500)
     avatar = models.CharField(max_length=250, default="static/images/default.png")
@@ -23,3 +25,17 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.comment
+
+class Ticket(models.Model):
+    voter=models.ForeignKey(to=User,related_name='voted_tickets')
+    article=models.ForeignKey(to=Article,related_name='tickets')
+
+    ARTICLE_CHOICES={
+    ("like", "like"),
+    ("dislike", "dislike"),
+    ("normal", "normal")
+    }
+    choice=models.CharField(choices=ARTICLE_CHOICES,max_length=10)
+
+    def __str__(self):
+        return str(self.id)
