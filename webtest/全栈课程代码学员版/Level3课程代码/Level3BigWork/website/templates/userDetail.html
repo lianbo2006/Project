@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <link rel="stylesheet" href="{% static 'css/semantic.css' %}" />
+        <link rel="stylesheet" href="{% static 'css/animate.css' %}" />
+        <script src="{% static 'js/vue1.js' %}"></script>
+        <script src="{% static 'js/reqwest.js' %}"></script>
+        <script src="{% static 'js/js.cookie.js' %}"></script>
+
+        <style media="screen">
+            body {
+                padding-top: 40px;
+            }
+            .ui.profile.container {
+                padding-top: 60px;
+            }
+
+        </style>
+    </head>
+        {% verbatim %}
+    <body id="app">
+
+        <div  class="ui fixed inverted red borderless menu">
+            <div v-on:click="gotoback" class="header item button">
+                <i class="icon angle left"></i>
+                10MINs
+            </div>
+
+        </div>
+
+        <!-- v-if="!opps" -->
+        <div class="ui profile container">
+            <h2 class="ui header">
+                <img src="{{ userinfo.profile.profile_image }}" class="ui circular image">
+                 {{ userinfo.username }}
+            </h2>
+            <form class="ui form" method="post" action="/m/userdetail/">
+                <div class="field">
+                    <label>Username</label>
+                    <input v-model="nickname" type="text">
+                </div>
+                <div class="field">
+                    <label>Password</label>
+                    <input v-model="password" type="text"  placeholder="Password">
+                </div>
+
+            </form>
+            <button v-on:click="sendnewinfo" class="ui button" style="margin-top: 10px;">Save</button>
+        </div>
+
+        <script>
+            var vm = new Vue({
+                el:"#app",
+                data:{
+                    id:"",
+                    nickname:"",
+                    password:"",
+                    userinfo:{},
+
+                },
+                methods:{
+                    gotoback:function () {
+                        window.location.href="/m/userlistpanel/";
+                    },
+                    sendnewinfo:function () {
+
+                        var self = this;
+                        reqwest({
+                            url:'/api/modifyinfo/'+self.id,
+                            type:'json',
+                            method:'post',
+                            headers:Cookies.get('token')? {'Authorization': 'Token ' + Cookies.get('token')}:{},
+                            data:{
+                                nickname:self.nickname,
+                                password:self.password,
+                            },
+                            success:function (resp) {
+                                console.log(resp);
+                                alert(resp.msg);
+                                self.readinfo();
+                            },
+                        })
+                    },
+                    readinfo:function () {
+                        var self = this;
+                        var id = Cookies.get("user_id");
+                        console.log(id);
+                        reqwest({
+                            url:'/api/oneuser/'+id,
+                            type:'json',
+                            method:'get',
+                            headers:Cookies.get('token')? {'Authorization': 'Token ' + Cookies.get('token')}:{},
+                            data:{},
+                            success:function (resp) {
+                                console.log(resp)
+                                self.userinfo = resp;
+                                self.nickname = self.userinfo.profile.nickname;
+                                self.id = id;
+                                self.password="";
+                            },
+                        })
+                    },
+                },
+                ready:function () {
+                    this.readinfo();
+                }
+            })
+        </script>
+
+    </body>
+{% endverbatim %}
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.6/semantic.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.28/vue.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/reqwest/2.0.5/reqwest.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.3/js.cookie.js"></script>
+
+        <style media="screen">
+            body {
+                padding-top: 40px;
+            }
+            .ui.very.padded.userlist.container {
+                padding-top: 50px;
+            }
+            .ui.fixed.something.menu {
+                position: fixed;top:50px;
+            }
+            .unscrollable{
+                height:100%;
+                overflow:hidden;
+            }
+            .ui.padded.modal.active {
+                transform: translate(0, -50%);
+            }
+            .ui.vertical.inverted.background.segment {
+                height: 260px;
+                background-size: cover;
+            }
+
+            .shortcut.buttons{
+                position: absolute;top:15px;left:15px;
+            }
+
+
+
+        </style>
+    </head>
+    <body id="app" class="dimmable {{ canScroll }} ">
+
+        <div  class="ui fixed inverted red borderless menu">
+            <div  v-on:click="showMenu = !showMenu" class="header item">
+                10MINs
+            </div>
+
+            <div class="right menu">
+                <div class="item">
+                    <button v-on:click="logIn" class="ui tiny inverted circular button" type="button" name=""> Admin </button>
+                </div>
+            </div>
+        </div>
+
+        <div v-show="modal.show" class="ui dimmer animated {{ fadeInOut }} active"   >
+            <div class="ui padded  modal {{ loadingOrNot }} segment active">
+                <h3 class="ui header">{{ showMsg }}</h3>
+                <i v-on:click="modalSwitch" class="icon tiny close" ></i>
+
+                <div class="content">
+                    <form class="ui form " >
+                        <div class="field">
+                            <input type="text" placeholder="username">
+                        </div>
+                        <div class="field">
+                            <input  type="text" placeholder="password">
+                        </div>
+                        <div class="field">
+                            <input type="text" placeholder="email">
+                        </div>
+                        <div class="ui secondary  menu">
+                          <a class="item">
+                            normal
+                          </a>
+                          <a class="item active">
+                            author
+                          </a>
+                        </div>
+
+
+                    </form>
+
+                </div>
+                <div v-on:click="sendData" class="ui fluid positive  button" >Submit</div>
+            </div>
+
+        </div>
+
+        <!-- v-if="!opps" -->
+
+
+        <div class="ui very padded userlist container">
+            <div class="ui big header">Operation</div>
+            <button v-on:click="modal.show = !modal.show" class="ui  tiny circular button" type="button" ><i class="icon plus"></i>NEW USER</button>
+            <div class="ui divider"></div>
+            <div class="ui big header">3 user in the list</div>
+            <div class="ui very selection relaxed list">
+                <div class="item">
+                    <img class="ui avatar image" src="http://semantic-ui.com/images/avatar/small/daniel.jpg">
+                    <div class="content">
+                        <a class="header">Daniel Louise</a>
+                    </div>
+                    <div class="right floated content">
+                        <i class="icon ellipsis vertical"></i>
+                    </div>
+                </div>
+                <div class="item">
+                    <img class="ui avatar image" src="http://semantic-ui.com/images/avatar/small/stevie.jpg">
+                    <div class="content">
+                        <a class="header">Stevie Feliciano</a>
+                        <span href="sub header">Invited Author</span>
+                        <span v-show="extraMenu.show" class="description">
+                            <div class="ui divider"></div>
+                            <div class="ui label">
+                                DELETE
+                            </div>
+
+                            <div class="ui label">
+                                Invited Author
+                            </div>
+
+                            <div class="ui label">
+                                Ban this user
+                            </div>
+                        </span>
+                    </div>
+                    <div class="right floated content">
+                        <i v-on:click="extraMenu.show = !extraMenu.show" class="icon ellipsis vertical"></i>
+                    </div>
+                </div>
+                <div class="item">
+                    <img class="ui avatar image" src="http://semantic-ui.com/images/avatar/small/elliot.jpg">
+                    <div class="content">
+                        <a class="header">Elliot Fu</a>
+                    </div>
+                    <div class="right floated content">
+                        <i class="icon ellipsis vertical"></i>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+
+        <script>
+            vm = new Vue({
+                el:"#app",
+                data:{
+                    modal:{
+                        show:false,
+                    },
+                    extraMenu:{
+                        show:false
+                    }
+
+                },
+                methods:{
+                    modalSwitch:function () {
+                        this.modal.show = !this.modal.show
+                    },
+                },
+                computed:{
+
+                    canScroll:function () {
+                        if (this.modal.show) {
+                            return 'unscrollable'
+                        } else {
+                            return ''
+                        }
+                    },
+                    fadeInOut:function () {
+                        if (this.modal.show) {
+                            return ' fadeIn'
+                        } else {
+                            return ' fadeOut'
+                        }
+                    },
+                },
+
+            })
+        </script>
+    </body>
+</html>

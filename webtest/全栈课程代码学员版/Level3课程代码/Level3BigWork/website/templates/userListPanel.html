@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <link rel="stylesheet" href="{% static 'css/animate.css' %}" />
+        <link rel="stylesheet" href="{% static 'css/semantic.css' %}" />
+
+        <script src="{% static 'js/vue1.js' %}"></script>
+        <script src="{% static 'js/reqwest.js' %}"></script>
+        <script src="{% static 'js/js.cookie.js' %}"></script>
+
+        <style media="screen">
+            body {
+                padding-top: 40px;
+            }
+            .ui.very.padded.userlist.container {
+                padding-top: 50px;
+            }
+            .ui.fixed.something.menu {
+                position: fixed;top:50px;
+            }
+            .unscrollable{
+                height:100%;
+                overflow:hidden;
+            }
+            .ui.padded.modal.active {
+                transform: translate(0, -50%);
+            }
+            .ui.vertical.inverted.background.segment {
+                height: 260px;
+                background-size: cover;
+            }
+
+            .shortcut.buttons{
+                position: absolute;top:15px;left:15px;
+            }
+
+
+
+        </style>
+    </head>
+    {% verbatim %}
+    <body id="app" class="dimmable {{ canScroll }} ">
+
+        <div  class="ui fixed inverted red borderless menu">
+            <div  class="header item">
+                10MINs
+            </div>
+
+            <div class="right menu">
+                <div class="item">
+                    <button  class="ui tiny inverted circular button" type="button" name=""> Admin </button>
+                </div>
+            </div>
+        </div>
+
+        <div v-show="modal.show" class="ui dimmer animated {{ fadeInOut }} active"   >
+            <div class="ui padded  modal {{ loadingOrNot }} segment active">
+                <h3 class="ui header">{{ showMsg }}</h3>
+                <i v-on:click="modalSwitch" class="icon tiny close" ></i>
+
+                <div class="content">
+                    <form class="ui form">
+                        <div class="field">
+                            <input v-model="username" type="text" placeholder="username">
+                        </div>
+                        <div class="field">
+                            <input v-model="password" type="text" placeholder="password">
+                        </div>
+                        <div class="field">
+                            <input v-model="email" type="text" placeholder="email">
+                        </div>
+                        <div class="ui secondary  menu">
+                          <a v-on:click="choiceauth('normal',1)" class="item {{ activeone(1) }}">
+                            normal
+                          </a>
+                          <a v-on:click="choiceauth('author',2)" class="item {{ activeone(2) }}">
+                            author
+                          </a>
+                        </div>
+
+
+                    </form>
+
+                </div>
+                <div v-on:click="sendData" class="ui fluid positive  button" >Submit</div>
+            </div>
+
+        </div>
+
+        <div class="ui very padded userlist container">
+            <div class="ui big header">Operation</div>
+            <button v-on:click="modal.show = !modal.show" class="ui  tiny circular button" type="button" ><i class="icon plus"></i>NEW USER</button>
+            <div class="ui divider"></div>
+            <div class="ui big header">{{ userlist.length }} user in the list</div>
+            <div class="ui very selection relaxed list">
+
+                <div v-for="i in userlist" class="item">
+                    <img v-on:click="to(i.id)" class="ui avatar image" src="{{ i.profile.profile_image }}"><!--{{ i.profile.profile_image }}-->
+                    <div class="content">
+                        <a class="header">{{ i.username }}    昵称:{{ i.profile.nickname }}</a>
+                        <span href="sub header">{{ i.profile.choices }}    Email:{{ i.email }}</span>
+                        <span v-show="i.menu" class="description"><!--v-show="i.menu"-->
+                            <div class="ui divider"></div>
+                            <div v-on:click="delete(i.id)" class="ui label"><!--v-on:click="delete(i.id)"-->
+                                DELETE
+                            </div>
+
+                            <div v-on:click="modifyauth(i.id)" class="ui label">
+                                Invited Author
+                            </div>
+
+                            <div v-on:click="banuser(i.id)" class="ui label">
+                                Ban this user
+                            </div>
+                        </span>
+                    </div>
+                    <div class="right floated content">
+                        <i v-on:click="i.menu = !i.menu"  class="icon ellipsis vertical"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <script>
+            vm = new Vue({
+                el:"#app",
+                data:{
+                    username:"",
+                    password:"",
+                    email:"",
+                    choices:"author",
+                    current:2,
+                    modal:{
+                        show:false,
+                    },
+                    extraMenu:{
+                        show:false
+                    },
+                    userlist:[],
+
+
+                    demolist:[
+                        {name:'123',menu:false},
+                        {name:'222',menu:false},
+                        {name:'333',menu:false},
+                    ],
+
+
+
+                },
+                methods:{
+                    to:function (id) {
+                        Cookies.set('user_id', id);
+                        window.location.href="/m/userdetail/";
+                    },
+                    delete:function (id) {
+                        var self = this;
+                        var id = id;
+                        reqwest({
+                            url:'/api/delete/'+id,
+                            type:'json',
+                            method:'delete',
+                            headers:Cookies.get('token')? {'Authorization': 'Token ' + Cookies.get('token')}:{},
+                            data:{},
+                            success:function (resp) {
+                                alert(resp.msg);
+                                self.loaduser();
+                            },
+                        })
+                    },
+                    modifyauth:function (id) {
+                        var self = this;
+                        var id = id;
+                        reqwest({
+                            url:'/api/modifyauth/'+id,
+                            type:'json',
+                            method:'put',
+                            headers:Cookies.get('token')? {'Authorization': 'Token ' + Cookies.get('token')}:{},
+                            data:{},
+                            success:function (resp) {
+                                alert(resp.msg);
+                                self.loaduser();
+                            },
+                        })
+                    },
+                    banuser:function (id) {
+                        var self = this;
+                        var id = id;
+                        reqwest({
+                            url:'/api/banuser/'+id,
+                            type:'json',
+                            method:'put',
+                            headers:Cookies.get('token')? {'Authorization': 'Token ' + Cookies.get('token')}:{},
+                            data:{},
+                            success:function (resp) {
+                                alert(resp.msg);
+                                self.loaduser();
+                            },
+                        })
+                    },
+                    clear:function () {
+                        this.username="",
+                        this.password="",
+                        this.email="",
+                        this.username="",
+                        this.choices="author"
+                    },
+                    modalSwitch:function () {
+                        this.modal.show = !this.modal.show
+                    },
+                    logIn:function () {
+
+                    },
+                    choiceauth:function (cho,id) {
+                        this.choices = cho;
+                        this.current = id;
+
+                    },
+                    sendData:function () {
+                        var self = this;
+                        self.modalSwitch();
+                        reqwest({
+                            url:'/api/createuser/',
+                            type:'json',
+                            method:'post',
+                            headers:Cookies.get('token')? {'Authorization': 'Token ' + Cookies.get('token')}:{},
+                            data:{
+                                username:self.username,
+                                password:self.password,
+                                email:self.email,
+                                choices:self.choices,
+                            },
+                            success:function (resp) {
+                                console.log(resp);
+                                alert(resp.msg);
+                                self.loaduser();
+                                self.clear();
+                            },
+                        })
+
+                    },
+                    activeone:function (id) {
+                        if(this.current == id){
+                            return 'active'
+                        }else{
+                            return ''
+                        }
+                    },
+                    loaduser:function(){
+                        var self = this;
+                        reqwest({
+                            url:'/api/getuser/',
+                            type:'json',
+                            method:'get',
+                            headers:Cookies.get('token')? {'Authorization': 'Token ' + Cookies.get('token')}:{},
+                            data:{},
+                            success:function (resp) {
+                                console.log(resp);
+                                for(var i=0;i<resp.length;i++){
+                                    resp[i]["menu"] = false;
+                                }
+                                self.userlist = resp;
+                                console.log(self.userlist.length);
+
+                            },
+                        })
+                    }
+
+                },
+                computed:{
+                    canScroll:function () {
+                        if (this.modal.show) {
+                            return 'unscrollable'
+                        } else {
+                            return ''
+                        }
+                    },
+                    fadeInOut:function () {
+                        if (this.modal.show) {
+                            return ' fadeIn'
+                        } else {
+                            return ' fadeOut'
+                        }
+                    },
+
+                },
+                ready:function(){
+                    this.loaduser();
+                }
+
+            })
+        </script>
+    {% endverbatim %}
+    </body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.6/semantic.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.28/vue.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/reqwest/2.0.5/reqwest.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.3/js.cookie.js"></script>
+
+        <style media="screen">
+            body {
+                padding-top: 40px;
+            }
+            .ui.profile.container {
+                padding-top: 60px;
+            }
+
+        </style>
+    </head>
+    <body id="app">
+
+        <div  class="ui fixed inverted red borderless menu">
+            <div class="header item">
+                <i class="icon angle left"></i>
+                10MINs
+            </div>
+
+        </div>
+
+        <!-- v-if="!opps" -->
+        <div class="ui profile container">
+            <h2 class="ui header">
+                <img src="http://semantic-ui.com/images/avatar2/large/patrick.png" class="ui circular image">
+                Patrick
+            </h2>
+            <form class="ui form">
+                <div class="field">
+                    <label>Username</label>
+                    <input type="text"  value="Username">
+                </div>
+                <div class="field">
+                    <label>Password</label>
+                    <input type="text"  value="Password">
+                </div>
+
+                <button class="ui button" type="submit">Save</button>
+            </form>
+        </div>
+
+
+        <script>
+        </script>
+    </body>
+</html>

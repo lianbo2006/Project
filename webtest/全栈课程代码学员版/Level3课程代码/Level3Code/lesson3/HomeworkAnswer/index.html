@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Shopping</title>
+        <script type="text/javascript" src="js/vue1.js" ></script>
+        <link rel="stylesheet" href="css/semantic.css"  media="screen" title="no title" charset="utf-8">
+        <link href="https://fonts.googleapis.com/css?family=Oswald|Raleway" rel="stylesheet">
+        <style type="text/css">
+            body {
+            font-family: 'Raleway', sans-serif;
+            }
+
+            .ui.container.nav {
+            width: 500px;
+            }
+            .ui.simple.dropdown:hover > .menu{
+            top: 70%!important;
+            }
+            .ui.basic.segment.container.content {
+            width: 850px;
+            }
+
+            .ui.basic.black.center.button {
+            position: relative;
+            transform: translate(-50%,0);
+            left:50%;
+            }
+        </style>
+    </head>
+    <body id="app">
+        <div class="ui container nav">
+            <div class="ui borderless text three item menu ">
+                <div class="ui simple dropdown  item" style="top: 70%;">
+                    {{ demo1.name }}
+                    <i class="dropdown icon"></i>
+                    <div  class="menu">
+                        <a class="item" v-for="me1 in demo1.body" href="#">{{ me1.name }}</a>
+                    </div>
+                </div>
+                <div class="ui simple dropdown  item" style="top: 70%;">
+                    {{ demo2.name }}
+                    <i class="dropdown icon"></i>
+                    <div class="menu" >
+                        <a class="item" v-for="me2 in demo2.body" href="#">{{ me2.name }}</a>
+                    </div>
+                </div>
+                <div class="ui simple dropdown  item" style="top: 70%;">
+                    {{ demo3.name }}
+                    <i class="dropdown icon"></i>
+                    <div class="menu">
+                    	<a class="item" v-for="me3 in demo3.body" href="#">{{ me3.name }}</a>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+        <div class="ui basic segment container content">
+            <div class="ui four column grid">
+                <div class="column">
+                    <div class="ui image">
+                        <img src="images/1.jpg" alt="">
+                    </div>
+                    <p style="text-align:center;font-size:14px;margin-top:10px;">SIGNATURE SILK SHIRT</p>
+                    <h4 style="text-align:center;font-size:14px;margin-top:10px;">$298.00</h4>
+                    <button class="ui basic black center button">ADD TO CART</button>
+                </div>
+                <div class="column">
+                    <div class="ui image">
+                        <img src="images/2.jpg" alt="">
+                    </div>
+                    <p style="text-align:center;font-size:14px;margin-top:10px;">SIGNATURE SILK SHIRT</p>
+                    <h4 style="text-align:center;font-size:14px;margin-top:10px;">$298.00</h4>
+                    <button class="ui basic black center button">ADD TO CART</button>
+                </div>
+                <div class="column">
+                    <div class="ui image">
+                        <img src="images/3.jpg" alt="">
+                    </div>
+                    <p style="text-align:center;font-size:14px;margin-top:10px;">SIGNATURE SILK SHIRT</p>
+                    <h4 style="text-align:center;font-size:14px;margin-top:10px;">$298.00</h4>
+                    <button class="ui basic black center button">ADD TO CART</button>
+                </div>
+                <div class="column">
+                    <div class="ui image">
+                        <img src="images/4.jpg" alt="">
+                    </div>
+                    <p style="text-align:center;font-size:14px;margin-top:10px;">SIGNATURE SILK SHIRT</p>
+                    <h4 style="text-align:center;font-size:14px;margin-top:10px;">$298.00</h4>
+                    <button class="ui basic black center button">ADD TO CART</button>
+                </div>
+                <div class="column">
+                    <div class="ui image">
+                        <img src="images/5.jpg" alt="">
+                    </div>
+                    <p style="text-align:center;font-size:14px;margin-top:10px;">SIGNATURE SILK SHIRT</p>
+                    <h4 style="text-align:center;font-size:14px;margin-top:10px;">$298.00</h4>
+                    <button class="ui basic black center button">ADD TO CART</button>
+                </div>
+                <div class="column">
+                    <div class="ui image">
+                        <img src="images/6.jpg" alt="">
+                    </div>
+                    <p style="text-align:center;font-size:14px;margin-top:10px;">SIGNATURE SILK SHIRT</p>
+                    <h4 style="text-align:center;font-size:14px;margin-top:10px;">$298.00</h4>
+                    <button class="ui basic black center button">ADD TO CART</button>
+                </div>
+                <div class="column">
+                    <div class="ui image">
+                        <img src="images/7.jpg" alt="">
+                    </div>
+                    <p style="text-align:center;font-size:14px;margin-top:10px;">SIGNATURE SILK SHIRT</p>
+                    <h4 style="text-align:center;font-size:14px;margin-top:10px;">$298.00</h4>
+                    <button class="ui basic black center button">ADD TO CART</button>
+                </div>
+                <div class="column">
+                    <div class="ui image">
+                        <img src="images/8.jpg" alt="">
+                    </div>
+                    <p style="text-align:center;font-size:14px;margin-top:10px;">SIGNATURE SILK SHIRT</p>
+                    <h4 style="text-align:center;font-size:14px;margin-top:10px;">$298.00</h4>
+                    <button class="ui basic black center button">ADD TO CART</button>
+                </div>
+                <div class="column">
+                    <div class="ui image">
+                        <img src="images/9.jpg" alt="">
+                    </div>
+                    <p style="text-align:center;font-size:14px;margin-top:10px;">SIGNATURE SILK SHIRT</p>
+                    <h4 style="text-align:center;font-size:14px;margin-top:10px;">$298.00</h4>
+                    <button class="ui basic black center button">ADD TO CART</button>
+                </div>
+                <div class="column">
+                    <div class="ui image">
+                        <img src="images/10.jpg" alt="">
+                    </div>
+                    <p style="text-align:center;font-size:14px;margin-top:10px;">SIGNATURE SILK SHIRT</p>
+                    <h4 style="text-align:center;font-size:14px;margin-top:10px;">$298.00</h4>
+                    <button class="ui basic black center button">ADD TO CART</button>
+                </div>
+                <div class="column">
+                    <div class="ui image">
+                        <img src="images/11.jpg" alt="">
+                    </div>
+                    <p style="text-align:center;font-size:14px;margin-top:10px;">SIGNATURE SILK SHIRT</p>
+                    <h4 style="text-align:center;font-size:14px;margin-top:10px;">$298.00</h4>
+                    <button class="ui basic black center button">ADD TO CART</button>
+                </div>
+                <div class="column">
+                    <div class="ui image">
+                        <img src="images/12.jpg" alt="">
+                    </div>
+                    <p style="text-align:center;font-size:14px;margin-top:10px;">SIGNATURE SILK SHIRT</p>
+                    <h4 style="text-align:center;font-size:14px;margin-top:10px;">$298.00</h4>
+                    <button class="ui basic black center button">ADD TO CART</button>
+                </div>
+
+            </div>
+        </div>
+
+        <script>
+        	var vm = new Vue({
+        		el:"#app",
+        		data:{
+        			demo1:{
+        				name:"明星同款",
+        				body:[
+                  {name:"Taylor Swift"},
+        					{name:"Rihanna"},
+	        				{name:"Victoria Beckham"},
+	        				{name:"Emma Roberts"},
+        				]
+        			},
+        			demo2:{
+        				name:"精选活动",
+        				body:[
+        					{name:"黑五大促"},
+	        				{name:"双十一返场"},
+	        				{name:"双十二预热"},
+        				]
+        			},
+        			demo3:{
+        				name:"推荐品牌",
+        				body:[
+        					{name:"Equipment"},
+	        				{name:"Everlane"},
+	        				{name:"Alexander Wang"},
+	        				{name:"Michael Kors"},
+        				]
+        			},
+        		},
+        	})
+        </script>
+
+
+    </body>
+</html>

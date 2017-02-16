@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>ToDo</title>
+        <link rel="stylesheet" href="css/semantic.css"  media="screen" title="no title" charset="utf-8">
+        <link href="https://fonts.googleapis.com/css?family=Oswald|Raleway" rel="stylesheet">
+        <script type="text/javascript" src="js/vue1.js" ></script>
+        <style type="text/css">
+            body {
+            background-color: #FDFDFD;
+            }
+            .left.floated{
+            	padding-top: 1%;
+            }
+            .ui.very.padded.segment.container {
+            width: 500px;
+            position: relative;
+            transform: translate(0,-50%);
+            top:30%;
+            }
+            .remove.icon {
+            color: #EAEBEB;
+            }
+            .ui.very.padded.container {
+            width: 500px;
+            }
+        </style>
+    </head>
+    <body id="app">
+        <div class="ui very padded container">
+            <div class="ui text menu">
+                <div class="header item" style="font-size:20px;">
+                    <i class="checkmark box icon"></i>
+                    麻瓜 To Do
+                </div>
+            </div>
+            <div class="ui divider">
+        </div>
+
+
+        </div>
+        <div class="ui very padded segment container">
+            <div class="ui action fluid input">
+                <input v-model="newmessage" type="text" placeholder="添加新任务">
+                <button class="ui icon basic button" v-on:click="addnew(newmessage);">
+                    <i class="plus icon" style="color:#666666" ></i>
+                </button>
+            </div>
+
+            <div v-for="comment in comments" class="ui relaxed divided list">
+                <div class="item" v-if="comment.show">
+                	<div class="left floated">
+                		<input type="checkbox" v-on:click="comment.co = !comment.co"> 
+                	</div>
+                    <div class="right floated content">
+                    	<a v-on:click="comment.show = false">
+                        <i class="remove icon"></i>
+                        </a>
+                    </div>
+                    <p v-if="comment.co" style="font-size:14px;">{{ comment.names }}</p>
+                    <p v-else style="font-size:14px;"><s>{{ comment.names }}</s></p>
+                </div>
+            </div>
+        </div>
+        <script>
+        	var vm = new Vue({
+        		el:"#app",
+        		data:{
+        			comments:[
+        				{names:"分享学习笔记",co:true,show:true},
+	        			{names:"修改Bug",co:true,show:true},
+	        			{names:"提交全栈课程的作业",co:true,show:true},
+	        			{names:"整理明日的学习计划",co:true,show:true},
+        			]
+        		},
+        		methods:{
+        			addnew:function(message){
+        				if(message==""){
+        					alert("不要添加空任务，别偷懒");
+        				}
+        				else{
+        					this.comments.push({names:message,co:true,show:true});
+        				}
+        			},
+        		}
+        	})
+        </script>
+    </body>
+</html>

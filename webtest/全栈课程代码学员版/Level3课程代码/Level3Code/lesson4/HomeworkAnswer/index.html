@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Shopping</title>
+        <script type="text/javascript" src="js/vue1.js" ></script>
+        <link rel="stylesheet" href="css/semantic.css"  media="screen" title="no title" charset="utf-8">
+        <!--<link rel="stylesheet" href="css/semantic.min.css"  media="screen" title="no title" charset="utf-8">-->
+
+        <link href="https://fonts.googleapis.com/css?family=Oswald|Raleway" rel="stylesheet">
+        <link rel="stylesheet" href="css/animate.css" />
+        <style type="text/css">
+            body {
+            font-family: 'Raleway', sans-serif;
+            }
+
+
+            .ui.container.nav {
+            width: 500px;
+            }
+            .ui.simple.dropdown:hover > .menu{
+            top: 70%!important;
+            }
+            .ui.basic.segment.container.content {
+            width: 850px;
+            }
+
+            .ui.basic.black.center.button {
+            position: relative;
+            transform: translate(-50%,0);
+            left:50%;
+            }
+            .ui.center.aligned.masthead.container {
+            width: 820px;
+            }
+
+        </style>
+    </head>
+    <body id="app">
+    	<style v-if="showstatus">
+    		.dim{
+        transition-duration: 0.5s, 0.5s;
+        -webkit-transform: translate3d(0, 0, 0) !important;
+				transform: translate3d(0, 0, 0) !important;
+            }
+    		.dimm{
+      	position:absolute;
+      	z-index:-1;
+            }
+    		.push.visible{
+  			display: none;
+    		}
+    		.trs{
+  			position:relative;
+  			z-index:1000;
+    		}
+    	</style>
+    	<style v-else>
+    		.animated{
+  			-webkit-animation-duration: 0.5s;
+				animation-duration: 0.5s;
+				-webkit-animation-fill-mode: both;
+				animation-fill-mode: both;
+    		}
+    		.dim{
+      	transition-duration: 0.5s, 0.5s;
+      	-webkit-transform: translate3d(0, 82px, 0) !important;
+				transform: translate3d(0, 82px, 0) !important;
+            }
+        .dimm{
+      	position:absolute;
+      	background-color: rgba(0, 0, 0, 0.4);
+      	z-index:100;
+      	height:100%;
+      	width:100%;
+        }
+        .push.visible{
+
+    		}
+    		.trs{
+
+    		}
+    	</style>
+        <div class="ui center aligned masthead container">
+            <div class="ui text left floated menu">
+                <button v-on:click="showmenu" class="ui black button trs" style="opacity:0.7;">分类</button>
+            </div>
+
+        </div>
+
+        <div class="ui top demo sidebar ui segment push visible animated fadeInDown">
+            <div class="ui center aligned page grid">
+                <div class="one column row">
+                    <div class="sixteen wide column">
+                        <h3 class="ui header">分类</h3>
+
+                    </div>
+                </div>
+                <div class="three column divided row">
+                    <div class="column">
+                        <a href="#">
+                            <i class="suitcase icon" style="color:#B2DDC9"></i>
+                            <span style="color:black">Man</span>
+                        </a>
+                    </div>
+                    <div class="column">
+                        <a href="#">
+                            <i class="heart icon" style="color:#F3B0AE"></i>
+                            <span style="color:black">Woman</span>
+                        </a>
+                    </div>
+                    <div class="column">
+                        <a href="#">
+                            <i class="game icon" style="color:#FEE789"></i>
+                            <span style="color:black">Child</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    <div class="pusher dim">
+		<div class="dimm"  v-on:click="hidemenu"></div>
+        <div class="ui container nav">
+            <div class="ui borderless text three item menu ">
+                <div class="ui simple dropdown  item" style="top: 70%;">
+                    明星同款
+                    <i class="dropdown icon"></i>
+                    <div class="menu">
+                        <a class="item" href="#">Taylor Swift</a>
+                        <a class="item" href="#">Rihanna</a>
+                        <a class="item" href="#">Victoria Beckham</a>
+                        <a class="item" href="#">Emma Roberts</a>
+                    </div>
+                </div>
+                <div class="ui simple dropdown  item" style="top: 70%;">
+                    精选活动
+                    <i class="dropdown icon"></i>
+                    <div class="menu">
+                        <a class="item" href="#">黑五大促</a>
+                        <a class="item" href="#">双十一返场</a>
+                    </div>
+                </div>
+                <div class="ui simple dropdown  item" style="top: 70%;">
+                    推荐品牌
+                    <i class="dropdown icon"></i>
+                    <div class="menu">
+                        <a class="item" href="#">Equipment</a>
+                        <a class="item" href="#">Everlane</a>
+                        <a class="item" href="#">Michael Kors</a>
+                        <a class="item" href="#">Alexander Wang</a>
+                        <a class="item" href="#">Massimo Dutti</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ui basic segment container content">
+              <div class="ui four column grid">
+                  <div class="column">
+                      <div class="ui image">
+                          <img src="images/1.jpg" alt="">
+                      </div>
+                      <p style="text-align:center;font-size:14px;margin-top:10px;">SIGNATURE SILK SHIRT</p>
+                      <h4 style="text-align:center;font-size:14px;margin-top:10px;">$298.00</h4>
+                      <button class="ui basic black center button">ADD TO CART</button>
+                  </div>
+                  <div class="column">
+                      <div class="ui image">
+                          <img src="images/2.jpg" alt="">
+                      </div>
+                      <p style="text-align:center;font-size:14px;margin-top:10px;">SIGNATURE SILK SHIRT</p>
+                      <h4 style="text-align:center;font-size:14px;margin-top:10px;">$298.00</h4>
+                      <button class="ui basic black center button">ADD TO CART</button>
+                  </div>
+                  <div class="column">
+                      <div class="ui image">
+                          <img src="images/3.jpg" alt="">
+                      </div>
+                      <p style="text-align:center;font-size:14px;margin-top:10px;">SIGNATURE SILK SHIRT</p>
+                      <h4 style="text-align:center;font-size:14px;margin-top:10px;">$298.00</h4>
+                      <button class="ui basic black center button">ADD TO CART</button>
+                  </div>
+                  <div class="column">
+                      <div class="ui image">
+                          <img src="images/4.jpg" alt="">
+                      </div>
+                      <p style="text-align:center;font-size:14px;margin-top:10px;">SIGNATURE SILK SHIRT</p>
+                      <h4 style="text-align:center;font-size:14px;margin-top:10px;">$298.00</h4>
+                      <button class="ui basic black center button">ADD TO CART</button>
+                  </div>
+                  <div class="column">
+                      <div class="ui image">
+                          <img src="images/5.jpg" alt="">
+                      </div>
+                      <p style="text-align:center;font-size:14px;margin-top:10px;">SIGNATURE SILK SHIRT</p>
+                      <h4 style="text-align:center;font-size:14px;margin-top:10px;">$298.00</h4>
+                      <button class="ui basic black center button">ADD TO CART</button>
+                  </div>
+                  <div class="column">
+                      <div class="ui image">
+                          <img src="images/6.jpg" alt="">
+                      </div>
+                      <p style="text-align:center;font-size:14px;margin-top:10px;">SIGNATURE SILK SHIRT</p>
+                      <h4 style="text-align:center;font-size:14px;margin-top:10px;">$298.00</h4>
+                      <button class="ui basic black center button">ADD TO CART</button>
+                  </div>
+                  <div class="column">
+                      <div class="ui image">
+                          <img src="images/7.jpg" alt="">
+                      </div>
+                      <p style="text-align:center;font-size:14px;margin-top:10px;">SIGNATURE SILK SHIRT</p>
+                      <h4 style="text-align:center;font-size:14px;margin-top:10px;">$298.00</h4>
+                      <button class="ui basic black center button">ADD TO CART</button>
+                  </div>
+                  <div class="column">
+                      <div class="ui image">
+                          <img src="images/8.jpg" alt="">
+                      </div>
+                      <p style="text-align:center;font-size:14px;margin-top:10px;">SIGNATURE SILK SHIRT</p>
+                      <h4 style="text-align:center;font-size:14px;margin-top:10px;">$298.00</h4>
+                      <button class="ui basic black center button">ADD TO CART</button>
+                  </div>
+                  <div class="column">
+                      <div class="ui image">
+                          <img src="images/9.jpg" alt="">
+                      </div>
+                      <p style="text-align:center;font-size:14px;margin-top:10px;">SIGNATURE SILK SHIRT</p>
+                      <h4 style="text-align:center;font-size:14px;margin-top:10px;">$298.00</h4>
+                      <button class="ui basic black center button">ADD TO CART</button>
+                  </div>
+                  <div class="column">
+                      <div class="ui image">
+                          <img src="images/10.jpg" alt="">
+                      </div>
+                      <p style="text-align:center;font-size:14px;margin-top:10px;">SIGNATURE SILK SHIRT</p>
+                      <h4 style="text-align:center;font-size:14px;margin-top:10px;">$298.00</h4>
+                      <button class="ui basic black center button">ADD TO CART</button>
+                  </div>
+                  <div class="column">
+                      <div class="ui image">
+                          <img src="images/11.jpg" alt="">
+                      </div>
+                      <p style="text-align:center;font-size:14px;margin-top:10px;">SIGNATURE SILK SHIRT</p>
+                      <h4 style="text-align:center;font-size:14px;margin-top:10px;">$298.00</h4>
+                      <button class="ui basic black center button">ADD TO CART</button>
+                  </div>
+                  <div class="column">
+                      <div class="ui image">
+                          <img src="images/12.jpg" alt="">
+                      </div>
+                      <p style="text-align:center;font-size:14px;margin-top:10px;">SIGNATURE SILK SHIRT</p>
+                      <h4 style="text-align:center;font-size:14px;margin-top:10px;">$298.00</h4>
+                      <button class="ui basic black center button">ADD TO CART</button>
+                  </div>
+
+              </div>
+          </div>
+        </div>
+
+        <script>
+          	var vm = new Vue({
+          		el:"#app",
+          		data:{
+          			showstatus:true,
+          		},
+          		methods:{
+          			showmenu:function(){
+          				this.showstatus = false;
+
+          			},
+          			hidemenu:function(){
+          				this.showstatus = true;
+          			}
+          		}
+          	})
+        </script>
+
+    </body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.6/semantic.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.28/vue.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/reqwest/2.0.5/reqwest.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.3/js.cookie.js"></script>
+
+        <style media="screen">
+            body {
+                padding-top: 40px;
+            }
+            .ui.vertical.segment.masthead {
+                height:200px;
+                padding-top:80px;
+                background-image: url(images/super_blur_back2.jpg);
+                background-size: cover;
+            }
+            .ui.login.container {
+                padding-top: 60px;
+            }
+            .ui.fixed.something.menu {
+                position: fixed;top:50px;
+            }
+            .unscrollable{
+                height:100%;
+                overflow:hidden;
+            }
+            .ui.padded.modal.active {
+                transform: translate(0, -50%);
+            }
+            .ui.vertical.inverted.background.segment {
+                height: 260px;
+                background-size: cover;
+            }
+
+            .shortcut.buttons{
+                position: absolute;top:15px;left:15px;
+            }
+
+
+        </style>
+    </head>
+    <body id="app" >
+        <div  class="ui fixed inverted red borderless menu">
+            <div  v-on:click="showMenu = !showMenu" class="header item">
+                10MINs
+            </div>
+
+        </div>
+        <!-- v-if="!opps" -->
+        <div class="ui vertical center aligned inverted segment masthead">
+            <h1 class="ui  heasder">Welcome</h1>
+        </div>
+        <div class="ui login container">
+            <form class="ui form">
+                <div class="field">
+                    <label>Username</label>
+                    <input type="text"  placeholder="Username">
+                </div>
+                <div class="field">
+                    <label>Password</label>
+                    <input type="text"  placeholder="Password">
+                </div>
+
+                <button class="ui button" type="submit">Submit</button>
+            </form>
+        </div>
+
+
+
+        <script>
+
+        </script>
+    </body>
+</html>
