@@ -21,11 +21,13 @@ from django.conf.urls.static import static
 from django.contrib.auth.views import logout
 
 from website.mobile_views import video_list
+from website.api import video
 
 
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^list/$', listing, name='list'),
     url(r'^list/(?P<cate>[A-Za-z]+)$', listing, name='list'),
     url(r'^detail/(?P<id>\d+)$', detail, name='detail'),
@@ -34,6 +36,7 @@ urlpatterns = [
     url(r'^register/$', index_register, name='register'),
     url(r'^logout/$', logout, {'next_page': '/register'}, name='logout'),
 
+    url(r'^api/video/', video),
     url(r'^m/videolist/', video_list),
 
 

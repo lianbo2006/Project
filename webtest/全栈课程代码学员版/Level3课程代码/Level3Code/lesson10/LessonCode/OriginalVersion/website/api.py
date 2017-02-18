@@ -18,11 +18,18 @@ class VideoSerializer(serializers.ModelSerializer):
 
 
 @api_view(['GET', 'POST'])
+@authentication_classes((TokenAuthentication,))
 def video(request):
+    print(request.user)
+    print(request.auth)
     video_list = Video.objects.order_by('-id')
     if request.method == 'GET':
-        serializer = VideoSerializer(video_list, many=True)
-        return Response(serializer.data)
+        if request.auth:
+            serializer = VideoSerializer(video_list, many=True)
+            return Response(serializer.data)
+        else:
+            serializer = VideoSerializer(video_list[:5], many=True)
+            return Response(serializer.data)
 
     elif request.method == 'POST':
         serializer = VideoSerializer(data=request.data)
@@ -37,6 +44,7 @@ def video(request):
 
 
 @api_view(['PUT', 'DELETE'])
+@authentication_classes((TokenAuthentication,))
 def video_card(request, id):
     video_card = Video.objects.get(id=id)
     if request.method == 'PUT':
@@ -46,6 +54,9 @@ def video_card(request, id):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     elif request.method == 'DELETE':
-        video_card = Video.objects.get(id=id)
-        video_card.delete()
-        return Response({'msg': 'A-OK'}, status=status.HTTP_201_CREATED)
+        if request.user.profile == video_card.owner:
+            # video_card = Video.objects.get(id=id)
+            video_card.delete()
+            return Response({'msg': 'A-OK'}, status=status.HTTP_201_CREATED)
+        else:
+            return Response({'msg': 'You cant touch this'}, status=status.HTTP_403_FORBIDDEN)

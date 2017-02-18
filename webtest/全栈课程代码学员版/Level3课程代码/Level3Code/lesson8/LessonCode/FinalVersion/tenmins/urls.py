@@ -26,6 +26,7 @@ from website.api import video
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^list/$', listing, name='list'),
     url(r'^list/(?P<cate>[A-Za-z]+)$', listing, name='list'),
     url(r'^detail/(?P<id>\d+)$', detail, name='detail'),

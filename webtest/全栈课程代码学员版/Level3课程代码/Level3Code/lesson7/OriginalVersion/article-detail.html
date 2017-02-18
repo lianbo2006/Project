@@ -57,10 +57,10 @@
         </div>
 
         <!-- Comments&Form's here -->
-        <div class="ui segment container" style="width:700px;">
+        <div class="ui segment {{ loadingOrNot }} container" style="width:700px;">
             <h3 class="ui header" style="font-family:'Oswald', sans-serif;">Comments</h3>
-            <div v-for="comment in comments" class="ui comments">
-                <div class="comment" v-if="comment.show">
+            <div v-for="comment in filteredList" class="ui comments">
+                <div class="comment">
                     <div class="avatar">
                         <img src="images/matt.jpg" alt="" />
                     </div>
@@ -68,17 +68,13 @@
                         <a href="#" class="author">{{ comment.name }}</a>
 
                         <p class="text" style="font-family: 'Raleway', sans-serif;">
-                            {{ comment.said }}
+                            My height is {{ comment.height }} cm
                         </p>
 
                         <div class="actions">
                             <a v-on:click="comment.show = !comment.show">spam</a>
                         </div>
                     </div>
-                </div>
-
-                <div v-else class="comment">
-                    <h3 class="ui sub header">Opps!</h3>
                 </div>
 
             </div>
@@ -106,21 +102,47 @@
                         fontSize:18
                     },
                     comments:[
-                        {name:"John Doe",said:"Great!",show:true},
-                        {name:"John Doe",said:"Great!",show:true},
-                        {name:"John Doe",said:"Great!",show:true},
-                        {name:"John Doe",said:"Great!",show:true},
+                        // {name:"John Doe",said:"Great!",show:true},
+                        // {name:"John Doe",said:"Great!",show:true},
+                        // {name:"John Doe",said:"Great!",show:true},
+                        // {name:"John Doe",said:"Great!",show:true},
                     ]
                 },
                 methods:{
                     modalSwitch:function () {
                         this.modal.show = !this.modal.show
-
+                    },
+                    getData:function () {
+                      var self = this;
+                      reqwest({
+                        url:"http://swapi.co/api/people/?format=json",
+                        type:"json",
+                        method:"get",
+                        success:function (resp) {
+                          self.comments = resp.results
+                        }
+                      })
+                    }
+                },
+                computed:{
+                  loadingOrNot:function () {
+                    if (this.comments.length==0) {
+                      return ' loading'
+                    } else {
+                      return ' '
+                      }
+                  },
+                    filteredList:function () {
+                        function userRuler(people) {
+                          return people.height > 100
+                        }
+                        var newList = this.comments.filter(userRuler)
+                        return newList
                     }
                 },
                 ready:function () {
-                    this.modalSwitch()
-                }
+                    this.getData()
+                },
             })
         </script>
 
