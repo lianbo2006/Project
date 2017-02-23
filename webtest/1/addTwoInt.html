@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>roslibjs addtwo int</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.6/semantic.css" />
+    <script type="text/javascript" src="http://cdn.robotwebtools.org/EventEmitter2/current/eventemitter2.min.js"></script>
+    <script type="text/javascript" src="http://cdn.robotwebtools.org/roslibjs/current/roslib.min.js"></script>
+  </head>
+
+  <script type="text/javascript" type="text/javascript">
+  //初始化ROS系统，连接至ROS
+  var ros = new ROSLIB.Ros({
+    url : 'ws://localhost:9090'
+  });
+
+  ros.on('connection', function() {
+
+      var fbDiv = document.getElementById('feedback');
+      fbDiv.innerHTML += "<p>Connected to websocket server.</p>";
+  });
+
+
+  ros.on('error', function(error) {
+
+     var fbDiv = document.getElementById('feedback');
+     fbDiv.innerHTML += "<p>Error connecting to websocket server.</p>";
+  });
+
+
+  ros.on('close', function() {
+
+     var fbDiv = document.getElementById('feedback');
+     fbDiv.innerHTML += "<p>Connection to websocket server closed.</p>";
+  });
+
+
+  //定义service
+  var addTwoIntsClient = new ROSLIB.Service({
+    ros : ros,
+    name : '/add_two_ints',
+    serviceType : 'rospy_tutorials/AddTwoInts'
+  });
+
+  var request = new ROSLIB.ServiceRequest({
+    a : 0,
+    b : 1
+  });
+  //重新定义调用函数
+  function callServiceSum(){
+
+    var A = 0;
+    var B = 0;
+
+    //将页面输入变量值传入刚才定义的变量中，使用了document.getElementById()方法
+    A = 0 + Number(document.getElementById('IntA').value);
+    B = 0 + Number(document.getElementById('IntB').value);
+
+    request.a = A;
+    request.b = B;
+
+    addTwoIntsClient.callService(request, function(result) {
+      console.log('Result for service call on '
+        + addTwoIntsClient.name
+        + ': '
+        + result.sum);
+        document.getElementById('absum').innerHTML = result.sum;
+    });
+  }
+
+</script>
+
+  <body>
+    <div class="ui  container" style="width:300px;position:absolute;top:25%;left:50%;transform:translate(-50%,-50%)">
+
+
+<form>
+  <p>请输入两个整数</p>
+  <table class="ui center aligned table">
+    <tr>
+      <td>整数A</td><td><input type="text" name="IntA" id="IntA"  value="0"></td>
+    </tr>
+    <tr>
+      <td>整数B</td><td><input type="text" name="IntB" id="IntB"  value="0"></td>
+  </table>
+  <h3 class="ui center aligned header"><button  type="button" onclick="callServiceSum()">相加</button></h1>
+</form>
+<table class="ui center aligned table">
+  <tr>
+    <td>AB和=<output id="absum"></td>
+  </tr>
+</table>
+<div id="feedback"></div>
+</div>
+  </body>
+
+</html>

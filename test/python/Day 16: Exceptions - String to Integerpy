@@ -1,0 +1,16 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+import sys
+# S = input().strip()
+# try:
+#     print(int(S))
+# except ValueError:
+#     print ("Bad String")
+
+S = input("请输入字符：").strip()
+while S:
+    try:
+        print("您输入的数字是：%d" %int(S))
+    except (ValueError):
+        print ("非整数数字输入")
+    S = input("请输入字符：").strip()
