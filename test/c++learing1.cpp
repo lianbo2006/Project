@@ -2,13 +2,6 @@
 #include <iomanip>
 using namespace std;
 
-int main()
-{
-	int number=5;
-	if(bool is_prime(number))
-	cout<<number<<endl;
-	return 0;
-}
 bool is_prime(int n){
 	if(n==1)
 	return false;
@@ -18,3 +11,12 @@ bool is_prime(int n){
 	}
 	return true;
 }
+
+int main()
+{
+	int number=7;
+	if(is_prime(number))
+	cout<<number<<endl;
+	return 0;
+}
+

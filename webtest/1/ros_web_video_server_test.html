@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.4/semantic.css">
+    <title>ros图传测试</title>
+    <style media="screen">
+      .ui.center.aligned.container {
+        position: relative;
+        top:10%;
+      }
+      .ui.center.aligned.header{
+        position: relative;
+        top:10%;
+      }
+    </style>
+
+  </head>
+  <body>
+    <div class="ui center aligned header">
+      <h2>/usb_cam/image_raw</h2>
+    </div>
+
+    <div class="ui center aligned container">
+      <img id="cam_raw" style="visibility: vision;" width="640" height="480" src="http://localhost:8080/stream?topic=/usb_cam/image_raw" alt="/usb_cam/image_raw">
+      <br>
+      <button onclick="playPause()">播放/暂停</button>
+      <button onclick="makeBig()">放大</button>
+      <button onclick="makeSmall()">缩小</button>
+      <button onclick="makeNormal()">普通大小</button>
+    </div>
+
+    <script>
+      var video_raw=document.getElementById("cam_raw");
+      var vidWidth=640;
+      var vidHeight=480;
+      var vidShow=true;
+      // var showshow="display:hidden;"
+      // var notshowshow="display:hiddden;"
+      var src_site1="http://localhost:8080/stream?topic=/usb_cam/image_raw";
+      var src_site2="https://gss0.baidu.com/-Po3dSag_xI4khGko9WTAnF6hhy/zhidao/wh%3D600%2C800/sign=6dc05f33f6246b607b5bba72dbc83674/4b90f603738da977eadb874bb051f8198718e3de.jpg";
+
+      function playPause()
+      {
+      	if (vidShow==true){
+          vidShow=!vidShow;
+          video_raw.src=src_site2;
+        }
+
+      	else{
+          vidShow=!vidShow;
+          video_raw.src=src_site1;
+        }
+      }
+
+    	function makeBig()
+    {
+    	vidWidth=vidWidth+60;
+      vidHeight=vidHeight+60;
+    	video_raw.width=vidWidth;
+      video_raw.height=vidHeight;
+    }
+
+    	function makeSmall()
+    {
+      vidWidth=vidWidth-60;
+      vidHeight=vidHeight-60;
+    	video_raw.width=vidWidth;
+      video_raw.height=vidHeight;
+    }
+
+    	function makeNormal()
+    {
+      vidWidth=640;
+      vidHeight=480;
+    	video_raw.width=vidWidth;
+      video_raw.height=vidHeight;
+    }
+    </script>
+
+  </body>
+</html>
