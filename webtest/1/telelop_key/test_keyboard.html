@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>键盘测试</title>
+    <link rel="stylesheet" href="css/semantic.css">
+    <script src="/home/lianbo2006/Project/webtest/1/robot_gui/firstapp/static/js/eventemitter2.min.js"></script>
+    <script src="/home/lianbo2006/Project/webtest/1/robot_gui/firstapp/static/js/roslib.min.js"></script>
+    <script src="/home/lianbo2006/Project/webtest/1/telelop_key/keyboardteleop.js"></script>
+    <script type="text/javascript">
+
+    </script>
+
+  </head>
+  <body>
+    <div class="ui segment" style="height:654px;">
+      <h2 class="ui center aligned header">手动遥控</h2>
+      <div class="ui basic center aligned segment">
+        <div class="ui basic segment">
+
+          <button class="huge circular ui icon button left_right" onmousedown="startTimer('strafe_left')" onmouseup='stopTimer()'>
+            <i class="toggle left icon"></i>
+          </button>
+          <button class="huge circular ui icon button" onmousedown="startTimer('forward')" onmouseup='stopTimer()'>
+            <i class="toggle up icon"></i>
+          </button>
+          <button class="huge circular ui icon button left_right" onClick="setSpeed('strafe_right');">
+            <i class="toggle right icon"></i>
+          </button>
+
+        </div>
+
+        <div class="ui basic segment">
+          <button class="huge circular ui icon button left_right" onClick="setSpeed('left');">
+            <i class="undo icon"></i>
+          </button>
+          <button class="huge circular ui icon button" onClick="setSpeed('backward');">
+            <i class="toggle down icon"></i>
+          </button>
+          <button class="huge circular ui icon button left_right" onClick="setSpeed('right');">
+            <i class="repeat icon"></i>
+          </button>
+        </div>
+
+        <div class="ui basic segment">
+
+          <button class="ui red button" onClick="stopRobot();">
+            <i class="stop icon"></i>
+            stop
+          </button>
+
+
+        </div>
+      </div>
+
+    </div>
+
+  </body>
+</html>

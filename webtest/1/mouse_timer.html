@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>鼠标计时器联动测试</title>
+  </head>
+  <script type="text/javascript">
+  var c=0;
+  var t;
+  function startTimer() {
+    document.getElementById('txt').value=c;
+    c=c+1;
+    t=setTimeout("startTimer()",1000);
+  };
+  function stopTimer(){
+    c=0;
+    clearTimeout(t);
+  }
+  </script>
+  <body>
+    <button type="button" name="button" onmousedown="startTimer();" onmouseup="stopTimer()">开始计时</button>
+    <input type="text" id="txt">
+  </body>
+</html>
