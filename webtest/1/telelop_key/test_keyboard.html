@@ -13,38 +13,39 @@
 
   </head>
   <body>
-    <div class="ui segment" style="height:654px;">
+    <br>
+    <div class="ui padded blue inverted center aligned container segment" style="height:654px;" onmouseup='stopTimer()'>
       <h2 class="ui center aligned header">手动遥控</h2>
       <div class="ui basic center aligned segment">
         <div class="ui basic segment">
 
-          <button class="huge circular ui icon button left_right" onmousedown="startTimer('strafe_left')" onmouseup='stopTimer()'>
+          <button class="huge circular ui icon button left_right" onmousedown="startTimer('strafe_left')">
             <i class="toggle left icon"></i>
           </button>
-          <button class="huge circular ui icon button" onmousedown="startTimer('forward')" onmouseup='stopTimer()'>
+          <button class="huge circular ui icon button" onmousedown="startTimer('forward')">
             <i class="toggle up icon"></i>
           </button>
-          <button class="huge circular ui icon button left_right" onClick="setSpeed('strafe_right');">
+          <button class="huge circular ui icon button left_right" onmousedown="startTimer('strafe_right')">
             <i class="toggle right icon"></i>
           </button>
 
         </div>
 
         <div class="ui basic segment">
-          <button class="huge circular ui icon button left_right" onClick="setSpeed('left');">
+          <button class="huge circular ui icon button left_right" onmousedown="startTimer('left')">
             <i class="undo icon"></i>
           </button>
-          <button class="huge circular ui icon button" onClick="setSpeed('backward');">
+          <button class="huge circular ui icon button" onmousedown="startTimer('backward')">
             <i class="toggle down icon"></i>
           </button>
-          <button class="huge circular ui icon button left_right" onClick="setSpeed('right');">
+          <button class="huge circular ui icon button left_right" onmousedown="startTimer('right')">
             <i class="repeat icon"></i>
           </button>
         </div>
 
         <div class="ui basic segment">
 
-          <button class="ui red button" onClick="stopRobot();">
+          <button class="ui red button" onClick="instantStopRobot();">
             <i class="stop icon"></i>
             stop
           </button>
