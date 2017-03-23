@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>滑块测试</title>
+    <script type="text/javascript">
+    function myFunction() {
+      var x = document.getElementById("myRange").value;
+      document.getElementById("input").innerHTML = x;
+    }
+    </script>
+  </head>
+  <body>
+
+    <h3>如何使用滑块控件</h3>
+    <input type="range" id="myRange" max="5" min="0.02" defaultValue="0.2">
+    <button onclick="myFunction()">试一下</button>
+    <div class="" id="input"></div>
+  </body>
+</html>

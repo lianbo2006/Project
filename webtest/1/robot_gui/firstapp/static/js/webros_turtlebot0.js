@@ -1,37 +1,57 @@
 // 设定相关端口信息
 var rosbridgePort = "9090";
-var mjpegPort = "8888";
-
-// 获得主机ip地址
-thisHostName = "localhost";
+var videoPort = "8080";
 
 // 分别定义服务的主机变量
-var rosbridgeHost = thisHostName;
-var mjpegHost = thisHostName;
+var rosbridgeHost  = "localhost";
+var videoHost  = "localhost";
 
 // 设定rosbridge_server信息
 var rbServer = new ROSLIB.Ros({
     url : 'ws://' + rosbridgeHost + ':' + rosbridgePort
  });
 
- // 连接rosbridge_server并返回信息进行显示
+ // 设置web_video_server相关参数
+ var src_site1 = "http://" + videoHost + ":" + videoPort + "/stream?topic=/camera/rgb/image_raw";
+ var src_site2 = "http://" + videoHost + ":" + videoPort + "/stream?topic=/camera/depth/image_raw";
+ var src_site3="https://gss0.baidu.com/-Po3dSag_xI4khGko9WTAnF6hhy/zhidao/wh%3D600%2C800/sign=6dc05f33f6246b607b5bba72dbc83674/4b90f603738da977eadb874bb051f8198718e3de.jpg";
+ var vidShow='停止';
+
+ // 定义初始化函数
  function init() {
- rbServer.on('connection', function() {
-     var fbDiv = document.getElementById('feedback');
-     fbDiv.innerHTML += "<p>websocket 服务器已连接</p>";
-     console.log('Connected to websocket server.');
- });
-rbServer.on('error', function(error) {
-    var fbDiv = document.getElementById('feedback');
-    fbDiv.innerHTML += "<p>连接 websocket 服务器错误</p>";
-    console.log('Error connecting to websocket server: ', error);
-});
-rbServer.on('close', function() {
-    var fbDiv = document.getElementById('feedback');
-    fbDiv.innerHTML += "<p>websocket 服务器已关闭</p>";
-    console.log('Connection to websocket server closed.');
- });
- }
+   // 修改相关端口信息
+   rosbridgePort = document.getElementById('rosbridgePort').value;
+   videoPort = document.getElementById('videoPort').value;
+
+   // 修改服务的主机变量
+   rosbridgeHost  = document.getElementById('rosbridgeHost').value;
+   videoHost  = document.getElementById('videoHost').value;
+
+   // 修改rosbridge_server信息
+  rbServer = new ROSLIB.Ros({
+       url : 'ws://' + rosbridgeHost + ':' + rosbridgePort
+    });
+
+   // 连接rosbridge_server并返回信息进行显示
+   rbServer.on('connection', function() {
+       alert("websocket 服务器已连接");
+       console.log('Connected to websocket server.');
+   });
+    rbServer.on('error', function(error) {
+        alert("连接 websocket 服务器错误");
+        console.log('Error connecting to websocket server: ', error);
+    });
+    rbServer.on('close', function() {
+        alert("websocket 服务器已关闭");
+        console.log('Connection to websocket server closed.');
+     });
+
+     // 修改web_video_server相关参数
+     src_site1 = "http://" + videoHost + ":" + videoPort + "/stream?topic=/camera/rgb/image_raw";
+     src_site2 = "http://" + videoHost + ":" + videoPort + "/stream?topic=/camera/depth/image_raw";
+     var video_raw = document.getElementById("cam_raw");
+     video_raw.src=src_site3;
+}
 
 // These lines create a topic object as defined by roslibjs
 var cmdVelTopic = new ROSLIB.Topic({
@@ -40,27 +60,21 @@ var cmdVelTopic = new ROSLIB.Topic({
     messageType : 'geometry_msgs/Twist'
 });
 
-// // 设置web_video_server相关参数
-// var video_raw = document.getElementById("cam_raw");
-// var src_site1 = "http://" + mjpegHost + ":" + mjpegPort + "/stream?topic=/camera/rgb/image_raw";
-// var src_site2 = "http://" + mjpegHost + ":" + mjpegPort + "/stream?topic=/camera/depth/image_raw";
-// var src_site３="{% static 'images/blackback.jpg' %}";
-// var vidShow='停止';
-
 // 定义视频显示函数
 function playPause(){
+  var video_raw = document.getElementById("cam_raw");
   if (vidShow=='停止'){
     vidShow='彩色';
     video_raw.src=src_site1;
   }
   else if (vidShow=='彩色') {
     vidShow='深度';
-    video_raw.src=src_site２;
+    video_raw.src=src_site2;
   }
 
   else{
     vidShow='停止';
-    video_raw.src=src_site３;
+    video_raw.src=src_site3;
   }
 }
 
@@ -69,7 +83,7 @@ var t1;
 var t2;
 var c = 0;
 
-// 测试用变量
+// // 测试用变量
 // var count=0;
 
 // 定义线速度x与角速度y以及它们的阈值
@@ -105,6 +119,10 @@ function cmdPub(){
 
 //　定义速度设定函数，通过code判断按键
 function setSpeed(code) {
+  var vxText = 0 + Number(document.getElementById('vxText').value);
+  var vzText = 0 + Number(document.getElementById('vzText').value);
+  var vxDis = Math.abs(vxText - vx);
+  var vzDis = Math.abs(vzText - vz);
 
 	// 向左
 	if (code == 'left' ) {
@@ -133,11 +151,30 @@ function setSpeed(code) {
     vz -= vz_increment;
 	}
   else if (code == 'set') {
-		vx = 0 + Number(document.getElementById('vxText').value);
-    vz = 0 + Number(document.getElementById('vzText').value);
-
+    if (vxDis > vx_increment && vzDis > vz_increment) {
+      vx=(Math.abs(vx) + vx_increment)* Math.sign(vxText);
+      vz=(Math.abs(vz) + vz_increment)* Math.sign(vzText);
+    }
+    else if (Math.abs(vxDis) > vx_increment && Math.abs(vzDis) <= vz_increment) {
+      vx=(Math.abs(vx) + vx_increment)* Math.sign(vxText);
+      vz = vzText;
+    }
+    else if (Math.abs(vzDis) > vz_increment && Math.abs(vxDis) <= vx_increment) {
+      vz=(Math.abs(vz) + vz_increment)* Math.sign(vzText);
+      vx = vzText;
+    }
+    else if (Math.abs(vzDis) <= vz_increment && Math.abs(vxDis) <= vx_increment) {
+      vx = vxText;
+      vz = vzText;
+    }
 	}
   cmdPub();
+}
+
+// 定义最大值设置函数
+function setMax() {
+  vxmax = Math.min(Math.abs(document.getElementById('vxMaxText').value), 0.5);
+  vzmax = Math.min(Math.abs(document.getElementById('vzMaxText').value), 1.0);
 }
 
 //定义停止函数
@@ -176,13 +213,6 @@ function startTimer(code1) {
   t1 = setInterval(function() {setSpeed(code1)}, 100);
 }
 
-function startTimer1(code2) {
-  for (var i = 0; i < 20; i++) {
-    t1 = setTimeout(function() {setSpeed(code2)}, 100);
-  }
-  // stopTimer();
-}
-
 // 定义计时器停止函数
 function stopTimer() {
   clearInterval(t1);
@@ -190,7 +220,7 @@ function stopTimer() {
     clearInterval(t2);
   }
   else if (vx != 0 || vz != 0) {
-    t2 = setInterval("stopRobot()", 25);
+    t2 = setInterval("stopRobot()", 50);
   }
   else {
     instantStopRobot();
