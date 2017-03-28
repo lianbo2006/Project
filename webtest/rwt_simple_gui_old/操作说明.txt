@@ -1,0 +1,8 @@
+#先启动rosbridge与web_video_server
+$ roslaunch usb_cam robot_gui.launch 
+#再建立反向ssh隧道
+$ ssh -NfR 1234:localhost:9090 ubuntu@123.206.22.180
+$ ssh -NfR 2345:localhost:8888 ubuntu@123.206.22.180
+#最后启动turtlebot
+$ roslaunch turtlebot_bringup minimal.lauch
+

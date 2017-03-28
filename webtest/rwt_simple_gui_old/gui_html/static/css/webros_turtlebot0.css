@@ -1,0 +1,8 @@
+.ui.fluid.container {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.huge.circular.ui.icon.button.left_right{
+  margin-left: 42px;
+  margin-right: 42px;
+}

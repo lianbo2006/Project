@@ -1,0 +1,9 @@
+ssh ubuntu@123.206.22.180
+scp lianbo2006@219.216.87.82:/home/lianbo2006/Project/webtest/websocket/tcp_client.py /home/ubuntu/test
+scp /home/lianbo2006/Project/webtest/websocket/tcp_server.py ubuntu@123.206.22.180:/home/ubuntu/test
+roslaunch web_video_server video_server.launch
+ssh -NfR 1234:localhost:8888 ubuntu@123.206.22.180
+ssh -NfR 1234:192.168.191.2:8888 ubuntu@123.206.22.180
+ssh -fCNL *:2345:localhost:1234 localhost
+sudo netstat -anp | grep 1234
+

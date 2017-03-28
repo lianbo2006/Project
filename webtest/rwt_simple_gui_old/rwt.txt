@@ -1,0 +1,27 @@
+#rosbridge_suite
+sudo apt-get install ros-indigo-rosbridge-suite
+source /opt/ros/indigo/setup.bash
+
+#workspace
+cd rwt_ws
+catkin_make
+source devel/setup.bash
+gedit ~/.bashrc
+#export ROS_PACKAGE_PATH=~/rwt_ws/src:$ROS_PACKAGE_PATH
+#source ~/rwt_ws/devel/setup.bash
+
+#ssh
+ssh ubuntu@123.206.22.180
+    #双机都安装autossh
+    #$ sudo apt-get install autossh
+    本地主机将8888端口映射到云主机的1234端口上,在本地主机终端：
+    $ ssh -NfR 1234:192.168.191.2:8888 ubuntu@123.206.22.180
+    #云主机将自身1234端口转发到2345端口，供外网访问,在本地主机终端：
+    $ ssh -fCNL *:2345:localhost:1234 localhost
+    #通过123.206.22.180：2345即可访问内网的192.168.191.2:8888的内容
+    #再补充相关有用的命令两条，查看端口对应进程：
+    $ sudo netstat -anp | grep 2345
+    tcp        0      0 0.0.0.0:2345            0.0.0.0:*               LISTEN      16411/ssh      
+    tcp6       0      0 :::2345                 :::*                    LISTEN      16411/ssh
+    #得到进程号可以关闭进程，停止监听或转发：
+    $ kill 16411

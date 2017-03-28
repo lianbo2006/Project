@@ -1,0 +1,2 @@
+
+-DCATKIN_DEVEL_PREFIX=/home/lianbo2006/rwt_ws/devel -DCMAKE_INSTALL_PREFIX=/home/lianbo2006/rwt_ws/install -G Unix Makefiles
