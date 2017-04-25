@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+
+<script type="text/javascript" src="http://cdn.robotwebtools.org/EaselJS/current/easeljs.min.js"></script>
+<script type="text/javascript" src="http://cdn.robotwebtools.org/EventEmitter2/current/eventemitter2.min.js"></script>
+<script type="text/javascript" src="http://cdn.robotwebtools.org/roslibjs/current/roslib.min.js"></script>
+<script type="text/javascript" src="http://cdn.robotwebtools.org/ros2djs/current/ros2d.min.js"></script>
+
+<script type="text/javascript" type="text/javascript">
+  /**
+   * Setup all visualization elements when the page is loaded.
+   */
+  var map_width=600;
+  var map_height=500;
+
+  function init()
+  {
+    // Connect to ROS.
+    var ros = new ROSLIB.Ros(
+    {
+      url : 'ws://localhost:9090'
+    });
+
+    // Create the main viewer.
+    var viewer = new ROS2D.Viewer(
+      {
+      divID : 'map',
+      width : map_width,
+      height : map_height,
+      });
+
+    // Setup the map client.
+    var gridClient = new ROS2D.OccupancyGridClient(
+      {
+      ros : ros,
+      rootObject : viewer.scene
+      });
+    // Scale the canvas to fit to the map
+    gridClient.on('change', function()
+    {
+      viewer.scaleToDimensions(gridClient.currentGrid.width, gridClient.currentGrid.height);
+    });
+  };
+
+  function newmap()
+  {
+    var child=document.getElementById("map");
+    child.parentNode.removeChild(child);
+    var element=document.getElementById("visualizing");
+    child=document.createElement("div");
+    child.setAttribute("id","map");
+    element.appendChild(child);
+
+    init();
+
+    // // Create the main viewer.
+    // var viewer = new ROS2D.Viewer(
+    //   {
+    //   divID : 'map',
+    //   width : map_width,
+    //   height : map_height,
+    //   });
+    //
+    // // Setup the map client.
+    // var gridClient = new ROS2D.OccupancyGridClient(
+    //   {
+    //   ros : ros,
+    //   rootObject : viewer.scene
+    //   });
+    // // Scale the canvas to fit to the map
+    // gridClient.on('change', function()
+    // {
+    //   viewer.scaleToDimensions(gridClient.currentGrid.width, gridClient.currentGrid.height);
+    // });
+  };
+
+  function makeBig()
+{
+  map_width=map_width+50;
+  map_height=map_height+50;
+  newmap();
+}
+
+	function makeSmall()
+{
+  map_width=map_width-50;
+  map_height=map_height-50;
+  newmap();
+}
+
+	function makeNormal()
+{
+  map_width=600;
+  map_height=500;
+  newmap();
+}
+</script>
+</head>
+
+<body onload="init()">
+  <h1>Visualizing a Map</h1>
+  <div id="visualizing">
+    <div id="map"></div>
+  </div>
+  <div>
+    <button onclick="makeBig()">放大</button>
+    <button onclick="makeSmall()">缩小</button>
+    <button onclick="makeNormal()">普通</button>
+  </div>
+
+</body>
+</html>

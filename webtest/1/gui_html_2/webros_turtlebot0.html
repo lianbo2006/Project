@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="static/css/semantic.css">
+  <link rel="stylesheet" href="static/css/webros_turtlebot0.css">
+  <title>控制界面测试</title>
+  <script type="text/javascript" src="static/js/eventemitter2.min.js"></script>
+  <script type="text/javascript" src="static/js/roslib.min.js"></script>
+  <script type="text/javascript" src="static/js/webros_turtlebot0.js"></script>
+
+</head>
+
+<body onload="init()">
+  <div class="ui inverted top borderless teal menu">
+
+      <div class="header item">
+          <h2 class="ui inverted header">控制终端</h2>
+      </div>
+
+      <a href=" " class="item"><h3 class="ui inverted header">首页</h3></a>
+
+      <a href="webros_turtlebot0.html" class="item"><h3 class="ui inverted header">控制终端</h3></a>
+
+      <div class=" right item">
+            <h5 class="ui inverted header">
+                    <div class="ui mini circular image">
+                        <img src="static/images/turtlebot.jpeg" alt="turtlebot.jpeg">
+                    </div>
+                    <span>turtlebot</span>
+                </h5>
+        </div>
+
+        <div class="item">
+            <a href="" class="ui inverted circular button">Logout</a>
+        </div>
+
+  </div>
+
+  <div class="ui fluid container">
+    <div class="ui two column grid">
+
+      <div class="column">
+
+        <div class="ui segment">
+          <form name="hostPannel">
+          <h3 class="ui center aligned header">相关服务器的ip和端口设定窗口</h3>
+
+          <div class="ui equal width form">
+            <div class="fields">
+              <div class="field">
+                <label>rosbridgeIP</label>
+                <input id="rosbridgeHost" name="rosbridgeHost"  type="text" value="123.206.22.180">
+              </div>
+              <div class="field">
+                <label>rosbridgePort</label>
+                <input id="rosbridgePort" name="rosbridgePort" type="text" value="9090">
+              </div>
+            </div>
+              <div class="fields">
+                <div class="field">
+                  <label>videoHost</label>
+                  <input id="videoHost" name="videoHost" type="text" value="123.206.22.180">
+                </div>
+                <div class="field">
+                  <label>videoPort</label>
+                  <input id="videoPort" name="videoPort" type="text" value="8888">
+                </div>
+              </div>
+          </div>
+          <div class="ui basic center aligned segment">
+            <button class="ui teal button" type="button" onClick="init()">连接服务器</button>
+          </div>
+          </form>
+        </div>
+
+        <div class="ui segment">
+          <form name="maxPanel">
+            <h3 class="ui center aligned header">最大速度设定窗口</h3>
+            <div class="ui equal width form">
+              <div class="fields">
+                <div class="field">
+                  <label>线速度X(0.02~0.5)</label>
+                  <input id="vxMaxText" name="vxMaxText" type="text" value="0.2">
+                </div>
+                <div class="field">
+                  <label>角速度Z(0.1~1)</label>
+                  <input id="vzMaxText" name="vzMaxText" type="text" value="0.5">
+                </div>
+              </div>
+            </div>
+            <div class="ui basic center aligned segment">
+              <button class="ui teal button" type="button" onClick="setMax()">设定最大值</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="ui segment" onmouseup='stopTimer()'>
+          <form name="ctrlPanel">
+          <h3 class="ui center aligned header">速度消息发布窗口设定窗口</h3>
+          <div class="ui equal width form">
+            <div class="fields">
+              <div class="field">
+                <label>线速度X</label>
+                <input id="vxText" name="vxText" type="text" value="0.02">
+              </div>
+              <div class="field">
+                <label>角速度Z</label>
+                <input id="vzText" name="vzText" type="text" value="0.1">
+              </div>
+            </div>
+          </div>
+          <div class="ui basic center aligned segment">
+            <button class="ui teal button" type="button" onmousedown="startTimer('set')">请长按发布消息</button>
+          </div>
+          </form>
+        </div>
+
+      </div>
+
+      <div class="column">
+
+        <div class="ui segment">
+
+          <div class="ui center aligned container">
+            <img id="cam_raw" class="ui middle aligned image" src="static/images/blackback.jpg" alt="image_raw" width="480" height="320">
+            <div class="ui basic center aligned segment"style="margin-top:5px;">
+              <button id="vidButton" class="ui teal button" type="button" onclick="playPause()">彩色/停止</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="ui center aligned container segment" onmouseup='stopTimer()'>
+              <h3 class="ui center aligned header">手动遥控</h3>
+              <div class="ui basic center aligned segment">
+                <div class="ui basic segment">
+
+                  <button class="huge circular ui icon button left_right" onmousedown="startTimer('strafe_left')">
+                    <i class="toggle left icon"></i>
+                  </button>
+                  <button class="huge circular ui icon button" onmousedown="startTimer('forward')">
+                    <i class="toggle up icon"></i>
+                  </button>
+                  <button class="huge circular ui icon button left_right" onmousedown="startTimer('strafe_right')">
+                    <i class="toggle right icon"></i>
+                  </button>
+
+                </div>
+
+                <div class="ui basic segment">
+                  <button class="huge circular ui icon button left_right" onmousedown="startTimer('left')">
+                    <i class="undo icon"></i>
+                  </button>
+                  <button class="huge circular ui icon button" onmousedown="startTimer('backward')">
+                    <i class="toggle down icon"></i>
+                  </button>
+                  <button class="huge circular ui icon button left_right" onmousedown="startTimer('right')">
+                    <i class="repeat icon"></i>
+                  </button>
+                </div>
+
+                <div class="ui basic segment">
+                  <button class="ui red button" onClick="instantStopRobot();">
+                    <i class="stop icon"></i>
+                    stop
+                  </button>
+                </div>
+              </div>
+        </div>
+
+      </div>
+
+  </div>
+</div>
+
+</body>
+</html>
